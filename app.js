@@ -154,7 +154,10 @@ $(document).ready(function()
   $(window).on("keyup", function(event) {
 
     game.checkKey(event);
-
+    /* Escape key press, stop the game */
+        if (event.which == 27)
+          game.stop();
+      });
 
 
   // DEBUG

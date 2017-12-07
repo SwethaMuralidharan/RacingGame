@@ -1,8 +1,58 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-  <title > Racing Game </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Typing Game</title>
+  <header>
+      <h1>Typing Game</h1>
+  </header>
+  <link rel="stylesheet" href="style.css">
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <!-- STYLESHEETS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- VENDOR SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
-<body>
+<body class="setstyle">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+
+        <h2> Welcome to TypeRacer Marathons! </h2>
+
+        <h2> Instructions </h2>
+
+        <ul>
+          <li>Random letters appear in a container, 500px wide, at an interval of 1 second.</li>
+          <li>Every 100 milliseconds, all the existing letters move right by 10px.</li>
+          <li> Pressing a correct letter removes the oldest instance of that letter, and increases the score by 1 point. </li>
+          <li> Pressing a letter that isn't on the page decreases the score by 1 point.</li>
+          <li> Pressing Escape ends the game.</li>
+          <li> If a letter gets all the way to the right-hand side of the container, the game is over. </li>
+       </ul>
+    </div>
+  </div>
+</div>
+<hr>
+
+  <div id="score">0</div>
+  <br>
+<div id="container">
+    <div id="spacer"></div>
+    <div id="letters"></div>
+</div>
+<br/><br/>
+<footer>
+  <p>
+    Copyright 2017
+  </p>
+</footer>
 </body>
 </html>
