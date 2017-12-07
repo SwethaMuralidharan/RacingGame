@@ -16,16 +16,16 @@ this.$score = score_el;
 this.$spacer = spacer_el;
 
   this.currentSpacerWidth = 0;
-  this.spacerWidth = spacerWidth || 1;
-  this.letterWidth = letterWidth || 10;
-  this.containerWidth = containerWidth || 500;
+  this.spacerWidth = spacerWidth || 1; //empty space move width
+  this.letterWidth = letterWidth || 10; // set of existing letters moving right width
+  this.containerWidth = containerWidth || 500; // entire box width
 
 
 
   this.score = 0;
   this.letterAccelerateByPercent = 0.10;
-  this.letterAddSpeed = 1000; // milliseconds
-  this.currentLetters = [];
+  this.letterAddSpeed = 1000; // milliseconds => every 1 second, new letter gets added.
+  this.currentLetters = []; // array to retain currently existing letter set on screen.
   this.timerID = null; // set by startTimer()
   this.spacerTimerID = null; // set by spacerTimer()
 
@@ -37,6 +37,13 @@ this.$spacer = spacer_el;
 };
 
 Game.startTimer = function() {
+  /*
+
+  The setInterval() method calls a function or evaluates an expression at specified intervals (in milliseconds).
+  The setInterval() method will continue calling the function until clearInterval() is called, or the window is closed.
+  The ID value returned by setInterval() is used as the parameter for the clearInterval() method.
+
+*/
   var element = this;
   this.timerID = setInterval(function(){
     element.checkIfAtEnd();
@@ -48,6 +55,7 @@ Game.startTimer = function() {
 };
 
 Game.spacerTimer = function() {
+  /* the spacer bar keeps moving 1px for every 100ms until we reach the end . */
   var element = this;
   this.spacerTimerID = setInterval(function(){
     element.checkIfAtEnd();
@@ -59,27 +67,32 @@ Game.spacerTimer = function() {
 Game.checkIfAtEnd = function() {
   if (this.letterWidth != 0 && this.containerWidth != 0) {
     var widthSum = this.currentLetters.length * this.letterWidth + this.currentSpacerWidth + this.spacerWidth;
-    console.log(widthSum);
+    console.log(`Moved distance in pixels ${widthSum}`);
     if(widthSum == this.containerWidth){
       alert("Congratulations! You have Completed. Now Play again and beat your own score.!");
     }
     if (widthSum >= this.containerWidth) {
       console.log("AT END");
       this.stop();
+
     }
 
   }
 };
-Game.stop = function() {
+Game.stop = function()
+{
   clearInterval(this.timerID);
   clearInterval(this.spacerTimerID);
   this.trimFat();
 };
-Game.trimFat = function() {
+Game.trimFat = function()
+{
   var widthSum = this.currentLetters.length * this.letterWidth + this.currentSpacerWidth + this.spacerWidth;
-  if (widthSum > this.containerWidth) {
+  if (widthSum > this.containerWidth)
+  {
     this.currentSpacerWidth = this.containerWidth - (this.currentLetters.length * this.letterWidth);
-    // adjust spacer width
+    /*if 2 letters remains at the end, 500-2 =498px is csw; */
+    // adjust spacer width to updated width now. so that letters doesn't go at the beginning.
     this.$spacer.width(this.currentSpacerWidth);
   }
 };
@@ -141,6 +154,7 @@ Game.removeFromCurrentLetters = function(character) {
   var letterIndex = $.inArray(character, this.currentLetters);
   if (letterIndex > -1) {
     this.currentLetters.splice(letterIndex, 1);
+    /*The splice() method changes the contents of an array by removing existing elements  at index. */
   }
 };
 
@@ -149,6 +163,8 @@ $(document).ready(function()
   var lettersArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
   "t","u", "v", "x", "y", "z"];
   // START
+  /*Spacing in between class specifiers means a ascendant -> descendant relationship.
+ */
   var game = Game.initialize(lettersArray, $("#container #letters"), $("#score"), $("#container #spacer"));
 
   $(window).on("keyup", function(event) {
